@@ -7,8 +7,83 @@ import (
 	"github.com/joyde68/blog/pkg"
 	"gopkg.in/macaron.v1"
 	"html/template"
+	"io/ioutil"
 	"path"
+	"path/filepath"
 )
+
+type themeItem struct {
+	Name       string
+	Files      []string
+	ErrorFiles []string
+	Layout     []string
+}
+
+//func SetThemeCache(ctx *GoInk.Context, cache bool) {
+func SetThemeCache(cache bool) {
+	//ctx.App().View().NoCache()
+	//ctx.App().View().IsCache = cache
+	if cache {
+		SetSetting("theme_cache", "true")
+	} else {
+		SetSetting("theme_cache", "false")
+	}
+	SyncSettings()
+}
+
+func GetThemes(dir string) map[string]*themeItem {
+	m := make(map[string]*themeItem)
+	files, e := ioutil.ReadDir(dir)
+	if e != nil {
+		panic(e)
+	}
+	for _, fi := range files {
+		if fi.IsDir() && fi.Name() != "admin" {
+			theme, e := createThemeItem(filepath.Join(dir, fi.Name()))
+			if e != nil {
+				continue
+			}
+			theme.Name = fi.Name()
+			m[fi.Name()] = theme
+		}
+	}
+	return m
+}
+
+func createThemeItem(dir string) (*themeItem, error) {
+	files, e := ioutil.ReadDir(dir)
+	if e != nil {
+		return nil, e
+	}
+	theme := new(themeItem)
+	theme.Files = make([]string, 0)
+	theme.Layout = make([]string, 0)
+	for _, fi := range files {
+		if fi.IsDir() {
+			if fi.Name() == "error" {
+				theme.ErrorFiles, _ = filepath.Glob(filepath.Join(dir, fi.Name(), "*.html"))
+				for i, f := range theme.ErrorFiles {
+					theme.ErrorFiles[i] = filepath.Join(fi.Name(), filepath.Base(f))
+				}
+			} else {
+				f, _ := filepath.Glob(filepath.Join(dir, fi.Name(), "*.html"))
+				for _, ff := range f {
+					theme.Files = append(theme.Files, filepath.Join(fi.Name(), filepath.Base(ff)))
+				}
+			}
+		} else {
+			ext := filepath.Ext(fi.Name())
+			if ext == ".html" {
+				theme.Files = append(theme.Files, fi.Name())
+				continue
+			}
+			if ext == ".layout" {
+				theme.Layout = append(theme.Layout, fi.Name())
+			}
+		}
+	}
+	return theme, nil
+}
 
 // 返回模板渲染后的文本
 func RenderText(name string, data map[string]interface{}) string {

@@ -2,7 +2,6 @@ package routes
 
 import (
 	"fmt"
-	"github.com/joyde68/blog/cmd"
 	"github.com/joyde68/blog/models"
 	"github.com/joyde68/blog/pkg"
 	"gopkg.in/macaron.v1"
@@ -486,7 +485,7 @@ func AdminTemplates(context *macaron.Context) {
 		change := context.Query("cache")
 		if change != "" {
 			// 设置主题缓存
-			//cmd.SetThemeCache(context, change == "true")
+			//models.SetThemeCache(context, change == "true")
 			models.Json(context,true).End()
 			return
 		}
@@ -503,7 +502,7 @@ func AdminTemplates(context *macaron.Context) {
 
 	data := map[string]interface{}{
 		"Title":        "主题",
-		"Themes":       cmd.GetThemes("templates"),
+		"Themes":       models.GetThemes("templates"),
 		"CurrentTheme": models.GetSetting("site_theme"),
 	}
 
@@ -532,7 +531,7 @@ func AdminLogs(context *macaron.Context) {
 
 func AdminBackup(context *macaron.Context) {
 	if context.Req.Method == "POST" {
-		file, e := cmd.DoBackup(true)
+		file, e := models.DoBackup(true)
 		if e != nil {
 			models.Json(context, false).Set("msg", e.Error()).End()
 			return
@@ -548,12 +547,12 @@ func AdminBackup(context *macaron.Context) {
 			models.Json(context, false).End()
 			return
 		}
-		cmd.RemoveBackupFile(file)
+		models.RemoveBackupFile(file)
 		models.Json(context, true).End()
 		//context.Do("backup_delete", file)
 		return
 	}
-	files, err := cmd.GetBackupFiles()
+	files, err := models.GetBackupFiles()
 	if err != nil {
 		models.Theme(false).Tpl("500").Render(context, 500, nil)
 	}
@@ -572,7 +571,7 @@ func AdminBackup(context *macaron.Context) {
 func AdminMonitor(context *macaron.Context) {
 	data := map[string]interface{}{
 		"Title": "系统监控",
-		"M":     cmd.ReadMemStats(),
+		"M":     models.ReadMemStats(),
 	}
 
 	err := models.Theme(true).Layout("layout").Tpl("monitor").Render(context, 200, data)
@@ -584,7 +583,7 @@ func AdminMonitor(context *macaron.Context) {
 /*
 func CmdBackupFile(context *macaron.Context) {
 	file :=context.Query("file")
-	context.Download(cmd.GetBackupFileAbsPath(file))
+	context.Download(models.GetBackupFileAbsPath(file))
 	context.Do("backup_download", file)
 }
 */

@@ -1,8 +1,7 @@
-package cmd
+package models
 
 import (
 	"github.com/Unknwon/cae/zip"
-	"github.com/joyde68/blog/models"
 	"github.com/joyde68/blog/pkg"
 	"os"
 	"path"
@@ -91,12 +90,12 @@ func GetBackupFiles() ([]os.FileInfo, error) {
 
 // StartBackupTimer starts backup operation timer for auto backup stuff.
 func StartBackupTimer(t int) {
-	models.SetTimerFunc("backup-data", 144, func() {
+	SetTimerFunc("backup-data", 144, func() {
 		filename, e := DoBackup(true)
 		if e != nil {
-			models.CreateMessage("backup", "[0]"+e.Error())
+			CreateMessage("backup", "[0]"+e.Error())
 		} else {
-			models.CreateMessage("backup", "[1]"+filename)
+			CreateMessage("backup", "[1]"+filename)
 		}
 		println("backup files in", t, "hours")
 	})

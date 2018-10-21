@@ -1,11 +1,7 @@
-package cmd
+package pkg
 
 import (
-	"bytes"
-	"encoding/base64"
 	"fmt"
-	"github.com/Unknwon/cae/zip"
-	"github.com/joyde68/blog/pkg"
 	"io/ioutil"
 	"os"
 )
@@ -19,7 +15,7 @@ func CheckInstall() bool {
 	_, e := os.Stat(installLockFile)
 	return e == nil
 }
-
+/*
 func ExtractBundleBytes() {
 	// origin from https://github.com/wendal/gor/blob/master/gor/gor.go
 	decoder := base64.NewDecoder(base64.StdEncoding, bytes.NewBufferString(zipBytes))
@@ -37,13 +33,13 @@ func ExtractBundleBytes() {
 		os.Remove(tmpZipFile)
 	}()
 }
-
+*/
 func DoInstall() {
-	ExtractBundleBytes()
-	ioutil.WriteFile(installLockFile, []byte(fmt.Sprint(pkg.Now())), os.ModePerm)
+	//ExtractBundleBytes()
+	ioutil.WriteFile(installLockFile, []byte(fmt.Sprint(Now())), os.ModePerm)
 	println("install success")
 }
-
+/*
 func DoUpdateZipBytes(file string) error {
 	// copy from https://github.com/wendal/gor/blob/master/gor/gor.go
 	bytes, _ := ioutil.ReadFile(file)
@@ -60,3 +56,4 @@ const zipBytes="`
 	println("update success")
 	return nil
 }
+*/
