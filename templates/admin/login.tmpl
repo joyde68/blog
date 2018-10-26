@@ -48,10 +48,10 @@
             $('#login-form').ajaxSubmit({
                 dataType: "json",
                 success: function (json) {
-                    if (!json.res) {
-                        alert("登录错误，请检查用户或密码");
-                    } else {
+                    if (json.res) {
                         window.location.href = "/admin/";
+                    } else {
+                        alert("登录错误，请检查用户或密码");
                     }
                 }
             });

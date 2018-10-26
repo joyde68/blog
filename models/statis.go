@@ -5,7 +5,7 @@ type Statis struct {
 	Articles int
 	Pages    int
 	Files    int
-	Version  int
+	//Version  int
 	Readers  int
 }
 
@@ -15,7 +15,7 @@ func NewStatis() *Statis {
 	s.Articles = len(contentsIndex["article"])
 	s.Pages = len(contentsIndex["page"])
 	s.Files = len(files)
-	s.Version = GetVersion().Version
+	//s.Version = GetVersion().Version
 	s.Readers = len(GetReaders())
 	return s
 }

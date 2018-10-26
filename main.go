@@ -6,14 +6,10 @@ import (
 	"gopkg.in/macaron.v1"
 	"os"
 	"os/signal"
-	"path"
-	"strconv"
 	"syscall"
 )
 
 var (
-	// APP VERSION, as date version
-	VERSION = 20140228
 	// Global GoInk application
 	App *macaron.Macaron
 )
@@ -22,10 +18,8 @@ func init() {
 	// init application
 	App = macaron.Classic()
 
-	// init some settings
-	os.MkdirAll(path.Join("data", "log"), 0755)
-	os.MkdirAll(path.Join("tmp", "data"), 0755)
-	os.MkdirAll(path.Join("public", "upload"), 0755)
+	// init storage
+	models.Init()
 
 	// set static handler
 	App.Use(macaron.Static("public", macaron.StaticOptions{
@@ -42,9 +36,6 @@ func init() {
 		models.Theme(false).Tpl("500").Render(context, 500, nil)
 	})
 
-	// init storage
-	models.Init(VERSION)
-
 	// load all data
 	models.All()
 
@@ -55,10 +46,7 @@ func init() {
 func main() {
 
 	registerAdminRoutes()
-	//registerCmdHandler()
 	registerHomeRoutes()
-
-	println("app version @ " + strconv.Itoa(models.GetVersion().Version))
 
 	App.Run()
 }
@@ -110,18 +98,21 @@ func registerAdminRoutes() {
 		App.Route("files/p/:page/", "GET,DELETE", routes.AdminFiles)
 		App.Post("/files/upload/", routes.FileUpload)
 
+		App.Route("/message/", "GET,POST,DELETE", routes.AdminMessage)
 		App.Post("/message/read/", routes.Auth, routes.AdminMessageRead)
+
+		App.Get("/monitor/", routes.AdminMonitor)
+
+		App.Route("/reader/", "GET,POST", routes.AdminReader)
 
 		// CMD Handler
 		/*
 		App.Get("/cmd/backup/file/", routes.CmdBackupFile)
 		*/
-		App.Route("/message/", "GET,POST,DELETE", routes.AdminMessage)
-		App.Route("/reader/", "GET,POST", routes.AdminReader)
+
 		App.Route("/templates/", "GET,POST", routes.AdminTemplates)
 		App.Route("/logs/", "GET,DELETE", routes.AdminLogs)
 		App.Route("/backup/", "GET,POST,DELETE", routes.AdminBackup)
-		App.Get("/monitor/", routes.AdminMonitor)
 	}, routes.Auth)
 }
 

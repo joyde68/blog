@@ -235,7 +235,7 @@ func LoadContents() {
 	articleIndex := make([]int, 0)
 	pageIndex := make([]int, 0)
 	// walk files in directory
-	filepath.Walk(filepath.Join(Storage.dir, "content"), func(_ string, info os.FileInfo, err error) error {
+	filepath.Walk(filepath.Join(Storage.Dir, "content"), func(_ string, info os.FileInfo, err error) error {
 		if err == nil {
 			// ignore dir and sub-dir
 			if info.IsDir() {
