@@ -1,6 +1,7 @@
 package models
 
 import (
+	"fmt"
 	"github.com/Unknwon/cae/zip"
 	"github.com/joyde68/blog/pkg"
 	"os"
@@ -18,47 +19,27 @@ func init() {
 
 // DoBackup backups whole files to zip archive.
 // If withData is false, it compresses static files to zip archive without data files, config files and install lock file.
-func DoBackup(withData bool) (string, error) {
+func DoBackup() (string, error) {
 	os.Mkdir(backupDir, 0755)
 	// create zip file name from time unix
-	filename := path.Join(backupDir, pkg.DateTime(time.Now(), "YYYYMMDDHHmmss"))
-	if withData {
-		filename += ".zip"
-	} else {
-		filename += "_public.zip"
-	}
+	filename := path.Join(backupDir, pkg.DateTime(time.Now(), "YYYYMMDDHHmmss")) + ".zip"
+
 	z, e := zip.Create(filename)
 	if e != nil {
 		return "", e
 	}
 	root, _ := os.Getwd()
-	if withData {
-		// if with data, add install lock file and config file
-		lockFile := path.Join(root, "install.lock")
-		if pkg.IsFile(lockFile) {
-			z.AddFile("install.lock", lockFile)
-		}
-		configFile := path.Join(root, "config.json")
-		if pkg.IsFile(configFile) {
-			z.AddFile("config.json", configFile)
-		}
-	}
-	z.AddDir("public/css", path.Join(root, "public", "css"))
-	z.AddDir("public/img", path.Join(root, "public", "img"))
-	z.AddDir("public/js", path.Join(root, "public", "js"))
-	z.AddDir("public/lib", path.Join(root, "public", "lib"))
-	z.AddFile("public/favicon.ico", path.Join(root, "public", "favicon.ico"))
-	if withData {
-		// if with data, backup data files and uploaded files
-		z.AddDir("data", path.Join(root, "data"))
-		z.AddDir("public/upload", path.Join(root, "public", "upload"))
-	}
-	z.AddDir("view/default", path.Join(root, "templates", "default"))
+
+	// if with data, backup data files and uploaded files
+	z.AddDir("data", path.Join(root, "data"))
+	z.AddDir("public/upload", path.Join(root, "public", "upload"))
+
 	e = z.Flush()
 	if e != nil {
 		return "", e
 	}
-	println("backup success in " + filename)
+
+	fmt.Println("backup success in " + filename)
 	return filename, nil
 }
 
@@ -91,7 +72,7 @@ func GetBackupFiles() ([]os.FileInfo, error) {
 // StartBackupTimer starts backup operation timer for auto backup stuff.
 func StartBackupTimer(t int) {
 	SetTimerFunc("backup-data", 144, func() {
-		filename, e := DoBackup(true)
+		filename, e := DoBackup()
 		if e != nil {
 			CreateMessage("backup", "[0]"+e.Error())
 		} else {

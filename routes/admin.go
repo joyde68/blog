@@ -531,13 +531,12 @@ func AdminLogs(context *macaron.Context) {
 
 func AdminBackup(context *macaron.Context) {
 	if context.Req.Method == "POST" {
-		file, e := models.DoBackup(true)
+		file, e := models.DoBackup()
 		if e != nil {
 			models.Json(context, false).Set("msg", e.Error()).End()
 			return
 		}
 		models.Json(context, true).Set("file", file).End()
-		//context.Do("bakcup_success", file)
 		models.CreateMessage("backup", "[1]"+file)
 		return
 	}
@@ -549,7 +548,6 @@ func AdminBackup(context *macaron.Context) {
 		}
 		models.RemoveBackupFile(file)
 		models.Json(context, true).End()
-		//context.Do("backup_delete", file)
 		return
 	}
 	files, err := models.GetBackupFiles()
@@ -566,6 +564,10 @@ func AdminBackup(context *macaron.Context) {
 	if err != nil {
 		models.Theme(false).Tpl("500").Render(context, 500, nil)
 	}
+}
+
+func AdminBackupFile(context *macaron.Context) {
+	context.ServeFile("backup/" + context.Params("filename"))
 }
 
 func AdminMonitor(context *macaron.Context) {

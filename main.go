@@ -15,9 +15,10 @@ var (
 )
 
 func init() {
+	macaron.Env = "production "
+
 	// init application
 	App = macaron.Classic()
-
 	// init storage
 	models.Init()
 
@@ -105,14 +106,12 @@ func registerAdminRoutes() {
 
 		App.Route("/reader/", "GET,POST", routes.AdminReader)
 
-		// CMD Handler
-		/*
-		App.Get("/cmd/backup/file/", routes.CmdBackupFile)
-		*/
-
 		App.Route("/templates/", "GET,POST", routes.AdminTemplates)
-		App.Route("/logs/", "GET,DELETE", routes.AdminLogs)
+
 		App.Route("/backup/", "GET,POST,DELETE", routes.AdminBackup)
+		App.Get("/backup/file/:filename", routes.AdminBackupFile)
+
+		//App.Route("/logs/", "GET,DELETE", routes.AdminLogs)
 	}, routes.Auth)
 }
 

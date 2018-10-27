@@ -2,22 +2,32 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="353fcb8f-c0c3-4ae0-ba91-ff929f377f57" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/models/install.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/settings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/messages.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/messages.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/tokens.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/tokens.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/version.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/content.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/content.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/setting.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/setting.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/statis.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/statis.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/storage.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/storage.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/version.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/install.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/zip.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/zip.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/home.go" beforeDir="false" afterPath="$PROJECT_DIR$/routes/home.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/admin/home.tmpl" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/home.tmpl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/admin/login.tmpl" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/login.tmpl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/backup.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/backup.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/init.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/theme.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/theme.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/admin.go" beforeDir="false" afterPath="$PROJECT_DIR$/routes/admin.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/admin/backup.tmpl" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/backup.tmpl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/admin/templates.tmpl" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/templates.tmpl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/ling/article.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/ling/comment.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/ling/error/error.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/ling/error/notfound.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/ling/home.layout" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/ling/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/ling/page.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/saber/article.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/saber/comment.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/saber/error/error.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/saber/error/notfound.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/saber/home.layout" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/saber/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/saber/page.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/saber/sidebar.html" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -146,30 +156,30 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="go" value="13" />
+          <entry key="go" value="16" />
           <entry key="js" value="2" />
-          <entry key="tmpl" value="5" />
+          <entry key="tmpl" value="7" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Go" value="13" />
+          <entry key="Go" value="16" />
           <entry key="JavaScript" value="2" />
-          <entry key="PLAIN_TEXT" value="5" />
+          <entry key="PLAIN_TEXT" value="7" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.vcs.git.usages" />
       <usages-collector id="statistics.go.postfix.template.usages.trigger" />
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="go" value="453" />
-          <entry key="tmpl" value="30" />
+          <entry key="go" value="658" />
+          <entry key="tmpl" value="119" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Go" value="453" />
-          <entry key="PLAIN_TEXT" value="30" />
+          <entry key="Go" value="658" />
+          <entry key="PLAIN_TEXT" value="119" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.js.language.service.starts" />
@@ -178,19 +188,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/models/init.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="95">
-              <caret line="5" column="2" selection-start-line="5" selection-start-column="2" selection-end-line="5" selection-end-column="2" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/models/setting.go">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="209">
-              <caret line="14" column="5" lean-forward="true" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
+              <caret line="14" column="5" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -198,8 +199,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/models/storage.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="418">
-              <caret line="94" lean-forward="true" selection-start-line="94" selection-end-line="94" />
+            <state relative-caret-position="1786">
+              <caret line="94" selection-start-line="94" selection-end-line="94" />
               <folding>
                 <element signature="e#16#112#0" expanded="true" />
               </folding>
@@ -210,20 +211,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="220">
-              <caret line="111" lean-forward="true" selection-start-line="111" selection-end-line="111" />
+            <state relative-caret-position="296">
+              <caret line="18" column="4" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="4" />
               <folding>
                 <element signature="e#14#164#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/routes/admin.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="133">
-              <caret line="533" column="30" selection-start-line="533" selection-start-column="30" selection-end-line="533" selection-end-column="30" />
             </state>
           </provider>
         </entry>
@@ -239,8 +231,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>package main</find>
-      <find>`</find>
       <find>reply-comment-template</find>
       <find>create-comment-template</find>
       <find>.Do</find>
@@ -269,6 +259,8 @@
       <find>models.</find>
       <find>Storage.dir</find>
       <find>Now</find>
+      <find>ErrorFiles</find>
+      <find>DoBackup</find>
     </findStrings>
     <replaceStrings>
       <replace>public</replace>
@@ -310,8 +302,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/view/default/layout.tmpl" />
-        <option value="$PROJECT_DIR$/../template-test/main.go" />
         <option value="$PROJECT_DIR$/app/cmd/theme.go" />
         <option value="$PROJECT_DIR$/app/model/content.go" />
         <option value="$PROJECT_DIR$/app/handler/func.go" />
@@ -344,12 +334,8 @@
         <option value="$PROJECT_DIR$/models/log.go" />
         <option value="$PROJECT_DIR$/models/monitor.go" />
         <option value="$PROJECT_DIR$/cmd/theme.go" />
-        <option value="$PROJECT_DIR$/routes/admin.go" />
-        <option value="$PROJECT_DIR$/models/theme.go" />
         <option value="$PROJECT_DIR$/pkg/backup.go" />
-        <option value="$PROJECT_DIR$/models/backup.go" />
         <option value="$PROJECT_DIR$/pkg/init.go" />
-        <option value="$PROJECT_DIR$/models/init.go" />
         <option value="$PROJECT_DIR$/models/statis.go" />
         <option value="$PROJECT_DIR$/models/setting.go" />
         <option value="$PROJECT_DIR$/pkg/install.go" />
@@ -360,6 +346,12 @@
         <option value="$PROJECT_DIR$/templates/admin/login.tmpl" />
         <option value="$PROJECT_DIR$/templates/admin/home.tmpl" />
         <option value="$PROJECT_DIR$/models/install.go" />
+        <option value="$PROJECT_DIR$/models/theme.go" />
+        <option value="$PROJECT_DIR$/templates/admin/templates.tmpl" />
+        <option value="$PROJECT_DIR$/models/init.go" />
+        <option value="$PROJECT_DIR$/models/backup.go" />
+        <option value="$PROJECT_DIR$/templates/admin/backup.tmpl" />
+        <option value="$PROJECT_DIR$/routes/admin.go" />
         <option value="$PROJECT_DIR$/main.go" />
       </list>
     </option>
@@ -371,9 +363,10 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="415" />
-    <option name="width" value="1430" />
-    <option name="height" value="764" />
+    <option name="x" value="240" />
+    <option name="y" value="135" />
+    <option name="width" value="1440" />
+    <option name="height" value="810" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -440,7 +433,7 @@
     <property name="configurable.Project.GOPATH.is.expanded" value="true" />
     <property name="go.gopath.indexing.explicitly.defined" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../asticode/go-astilectron-demo" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="go.vgo" />
@@ -465,7 +458,7 @@
     </option>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="878" extended-state="7" />
+    <frame x="-7" y="-7" width="1550" height="878" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2077748" />
@@ -515,11 +508,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/LICENSE" />
-    <entry file="file://$PROJECT_DIR$/README.md" />
-    <entry file="file://$PROJECT_DIR$/templates/rss.xml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file:///usr/lib/go-1.10/src/html/template/template.go" />
     <entry file="file:///usr/lib/go-1.10/src/html/template/content.go" />
     <entry file="file://$PROJECT_DIR$/routes/rss.go">
@@ -624,24 +612,10 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/cmd/theme.go" />
-    <entry file="file://$PROJECT_DIR$/models/theme.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="30" column="4" selection-start-line="30" selection-start-column="4" selection-end-line="30" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/models/monitor.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="95">
           <caret line="10" column="20" selection-start-line="10" selection-start-column="20" selection-end-line="10" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/init.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="5" column="2" selection-start-line="5" selection-start-column="2" selection-end-line="5" selection-end-column="2" />
         </state>
       </provider>
     </entry>
@@ -742,41 +716,72 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/models/setting.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="14" column="5" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../asticode/go-astilectron-demo/main.go">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/admin/templates.tmpl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="57">
+          <caret line="3" column="118" selection-start-line="3" selection-start-column="118" selection-end-line="3" selection-end-column="118" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/theme.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="70" column="74" lean-forward="true" selection-start-line="70" selection-start-column="74" selection-end-line="70" selection-end-column="74" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/init.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="6" column="2" lean-forward="true" selection-start-line="6" selection-start-column="2" selection-end-line="6" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/models/storage.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="94" lean-forward="true" selection-start-line="94" selection-end-line="94" />
+        <state relative-caret-position="1786">
+          <caret line="94" selection-start-line="94" selection-end-line="94" />
           <folding>
             <element signature="e#16#112#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/setting.go">
+    <entry file="file://$PROJECT_DIR$/models/backup.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="14" column="5" lean-forward="true" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
+        <state relative-caret-position="505">
+          <caret line="39" column="5" selection-start-line="39" selection-start-column="5" selection-end-line="39" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/admin/backup.tmpl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="8" column="65" selection-start-line="8" selection-start-column="65" selection-end-line="8" selection-end-column="65" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/admin.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="533" column="30" selection-start-line="533" selection-start-column="30" selection-end-line="533" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/backup.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-597">
-          <caret line="34" column="17" lean-forward="true" selection-start-line="34" selection-start-column="17" selection-end-line="34" selection-end-column="17" />
+        <state relative-caret-position="307">
+          <caret line="568" column="48" selection-start-line="568" selection-start-column="48" selection-end-line="568" selection-end-column="48" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="111" lean-forward="true" selection-start-line="111" selection-end-line="111" />
+        <state relative-caret-position="296">
+          <caret line="18" column="4" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="4" />
           <folding>
             <element signature="e#14#164#0" expanded="true" />
           </folding>

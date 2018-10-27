@@ -15,7 +15,7 @@ import (
 type themeItem struct {
 	Name       string
 	Files      []string
-	ErrorFiles []string
+	//ErrorFiles []string
 	Layout     []string
 }
 
@@ -60,25 +60,26 @@ func createThemeItem(dir string) (*themeItem, error) {
 	theme.Layout = make([]string, 0)
 	for _, fi := range files {
 		if fi.IsDir() {
+			/*
 			if fi.Name() == "error" {
-				theme.ErrorFiles, _ = filepath.Glob(filepath.Join(dir, fi.Name(), "*.html"))
+				theme.ErrorFiles, _ = filepath.Glob(filepath.Join(dir, fi.Name(), "*.tmpl"))
 				for i, f := range theme.ErrorFiles {
 					theme.ErrorFiles[i] = filepath.Join(fi.Name(), filepath.Base(f))
 				}
 			} else {
-				f, _ := filepath.Glob(filepath.Join(dir, fi.Name(), "*.html"))
-				for _, ff := range f {
-					theme.Files = append(theme.Files, filepath.Join(fi.Name(), filepath.Base(ff)))
-				}
+			*/
+			f, _ := filepath.Glob(filepath.Join(dir, fi.Name(), "*.tmpl"))
+			for _, ff := range f {
+				theme.Files = append(theme.Files, filepath.Join(fi.Name(), filepath.Base(ff)))
 			}
+			//}
 		} else {
-			ext := filepath.Ext(fi.Name())
-			if ext == ".html" {
-				theme.Files = append(theme.Files, fi.Name())
+			if fi.Name() == "layout.tmpl" {
+				theme.Layout = append(theme.Layout, fi.Name())
 				continue
 			}
-			if ext == ".layout" {
-				theme.Layout = append(theme.Layout, fi.Name())
+			if filepath.Ext(fi.Name()) == ".tmpl" {
+				theme.Files = append(theme.Files, fi.Name())
 			}
 		}
 	}
