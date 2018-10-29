@@ -11,13 +11,19 @@ import (
 )
 
 func Login(context *macaron.Context) {
+	ip := context.RemoteAddr()
+	if logginErrorNumber := models.GetLoginErrCount(ip); logginErrorNumber > 3 {
+		context.Redirect("/")
+	}
 	if context.Req.Method == "POST" {
 		user := models.GetUserByName(context.Query("user"))
 		if user == nil {
+			models.AddLoginErrLog("用户名错误", context)
 			models.Json(context, false).End()
 			return
 		}
 		if !user.CheckPassword(context.Query("password")) {
+			models.AddLoginErrLog("密码错误", context)
 			models.Json(context, false).End()
 			return
 		}

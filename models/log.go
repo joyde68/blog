@@ -1,13 +1,11 @@
 package models
 
 import (
-	"github.com/joyde68/blog/pkg"
-	"io/ioutil"
-	"os"
-	"path"
-	"path/filepath"
+	"gopkg.in/macaron.v1"
+	"time"
 )
 
+/*
 type logItem struct {
 	Name       string
 	CreateTime int64
@@ -57,4 +55,41 @@ func RemoveAllLog() {
 	f := filepath.Join("data", "log")
 	os.Remove(f)
 	os.MkdirAll(f, 0755)
+}
+*/
+
+var (
+	loginErrorCount map[string]int
+	loginErrorLog []loginErrLog
+)
+
+type loginErrLog struct {
+	User string
+	Password string
+	Message string
+	Date int64
+	Ip string
+	UserAgent string
+}
+
+func LogInit() {
+	loginErrorCount = make(map[string]int)
+	loginErrorLog = make([]loginErrLog, 0)
+}
+
+func AddLoginErrLog(msg string, context *macaron.Context) {
+	ip := context.RemoteAddr()
+	loginErrorCount[ip]++
+	loginErrorLog = append(loginErrorLog, loginErrLog{
+		User: context.Query("user"),
+		Password: context.Query("password"),
+		Message: msg,
+		Date: time.Now().Unix(),
+		Ip: ip,
+		UserAgent: context.Req.Header.Get("User-Agent"),
+	})
+}
+
+func GetLoginErrCount(ip string) int {
+	return loginErrorCount[ip]
 }

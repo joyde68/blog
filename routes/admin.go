@@ -512,6 +512,7 @@ func AdminTemplates(context *macaron.Context) {
 	}
 }
 
+/*
 func AdminLogs(context *macaron.Context) {
 	if context.Req.Method == "DELETE" {
 		models.RemoveLog(context.Query("file"))
@@ -528,6 +529,7 @@ func AdminLogs(context *macaron.Context) {
 		models.Theme(false).Tpl("500").Render(context, 500, nil)
 	}
 }
+*/
 
 func AdminBackup(context *macaron.Context) {
 	if context.Req.Method == "POST" {
@@ -581,11 +583,3 @@ func AdminMonitor(context *macaron.Context) {
 		models.Theme(false).Tpl("500").Render(context, 500, nil)
 	}
 }
-
-/*
-func CmdBackupFile(context *macaron.Context) {
-	file :=context.Query("file")
-	context.Download(models.GetBackupFileAbsPath(file))
-	context.Do("backup_download", file)
-}
-*/

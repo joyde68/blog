@@ -86,7 +86,7 @@ func (jss *JsonStorage) TimeInc(d int) int {
 // Init does model initialization.
 // If first run, write default data.
 // v means app.Version number. It's needed for version data.
-func Init() {
+func StorageInit() {
 	//appVersion = v
 	Storage = new(JsonStorage)
 	Storage.Init("data")

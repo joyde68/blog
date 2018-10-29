@@ -15,7 +15,7 @@ var (
 )
 
 func init() {
-	macaron.Env = "production "
+	macaron.Env = "production"
 
 	// init application
 	App = macaron.Classic()
