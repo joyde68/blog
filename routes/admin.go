@@ -55,7 +55,6 @@ func AdminProfile(context *macaron.Context) {
 		"User":  user,
 	}
 
-
 	err := models.Theme(true).Layout("layout").Tpl("profile").Render(context, 200, data)
 	if err != nil {
 		fmt.Println(err)
@@ -98,7 +97,6 @@ func AdminArticle(context *macaron.Context) {
 		"Articles": articles,
 		"Pager":    pager,
 	}
-
 
 	err := models.Theme(true).Layout("layout").Tpl("articles").Render(context, 200, data)
 	if err != nil {
@@ -191,7 +189,6 @@ func ArticleEdit(context *macaron.Context) {
 		"Article": c,
 	}
 
-
 	err := models.Theme(true).Layout("layout").Tpl("edit_article").Render(context, 200, data)
 	if err != nil {
 		models.Theme(false).Tpl("500").Render(context, 500, nil)
@@ -247,7 +244,6 @@ func PageWrite(context *macaron.Context) {
 	data := map[string]interface{}{
 		"Title": "撰写页面",
 	}
-
 
 	err := models.Theme(true).Layout("layout").Tpl("write_page").Render(context, 200, data)
 	if err != nil {
@@ -306,7 +302,7 @@ func AdminSetting(context *macaron.Context) {
 		for k, v := range context.Req.Form {
 			if v[0] == "" {
 				if context.Req.Form.Get(k+"_def") != "" {
-					v[0] = context.Req.Form.Get(k+"_def")
+					v[0] = context.Req.Form.Get(k + "_def")
 				}
 			}
 			models.SetSetting(k, v[0])
@@ -437,18 +433,18 @@ func AdminMessageRead(context *macaron.Context) {
 
 func AdminReader(context *macaron.Context) {
 	if context.Req.Method == "POST" {
-		email :=context.Query("email")
+		email := context.Query("email")
 		models.RemoveReader(email)
 		//Json(context, true).End()
 		models.Json(context, true).End()
 		return
 	}
 	/*
-	context.Layout("admin/cmd")
-	context.Render("admin/cmd/reader", map[string]interface{}{
-		"Title":   "读者",
-		"Readers": models.GetReaders(),
-	})
+		context.Layout("admin/cmd")
+		context.Render("admin/cmd/reader", map[string]interface{}{
+			"Title":   "读者",
+			"Readers": models.GetReaders(),
+		})
 	*/
 	data := map[string]interface{}{
 		"Title":   "读者",
@@ -463,11 +459,11 @@ func AdminReader(context *macaron.Context) {
 
 func AdminMessage(context *macaron.Context) {
 	/*
-	context.Layout("admin/cmd")
-	context.Render("admin/cmd/message", map[string]interface{}{
-		"Title":    "消息",
-		"Messages": models.GetMessages(),
-	})
+		context.Layout("admin/cmd")
+		context.Render("admin/cmd/message", map[string]interface{}{
+			"Title":    "消息",
+			"Messages": models.GetMessages(),
+		})
 	*/
 	data := map[string]interface{}{
 		"Title":    "消息",
@@ -486,7 +482,7 @@ func AdminTemplates(context *macaron.Context) {
 		if change != "" {
 			// 设置主题缓存
 			//models.SetThemeCache(context, change == "true")
-			models.Json(context,true).End()
+			models.Json(context, true).End()
 			return
 		}
 		theme := context.Query("theme")
@@ -494,7 +490,7 @@ func AdminTemplates(context *macaron.Context) {
 			models.SetSetting("site_theme", theme)
 			models.SyncSettings()
 			//Json(context, true).End()
-			models.Json(context,true).End()
+			models.Json(context, true).End()
 			return
 		}
 		return
@@ -512,7 +508,6 @@ func AdminTemplates(context *macaron.Context) {
 	}
 }
 
-/*
 func AdminLogs(context *macaron.Context) {
 	if context.Req.Method == "DELETE" {
 		models.RemoveLog(context.Query("file"))
@@ -529,7 +524,6 @@ func AdminLogs(context *macaron.Context) {
 		models.Theme(false).Tpl("500").Render(context, 500, nil)
 	}
 }
-*/
 
 func AdminBackup(context *macaron.Context) {
 	if context.Req.Method == "POST" {
@@ -543,7 +537,7 @@ func AdminBackup(context *macaron.Context) {
 		return
 	}
 	if context.Req.Method == "DELETE" {
-		file :=context.Query("file")
+		file := context.Query("file")
 		if file == "" {
 			models.Json(context, false).End()
 			return

@@ -103,7 +103,6 @@ func Home(context *macaron.Context) {
 
 	err := models.Theme(false).Layout("layout").Tpl("list").Render(context, 200, data)
 	if err != nil {
-		fmt.Println(err)
 		models.Theme(false).Tpl("500").Render(context, 500, nil)
 	}
 }

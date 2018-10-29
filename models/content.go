@@ -283,6 +283,7 @@ func generateContentTmpIndexes() {
 		tagIndexes = make(map[string][]int)
 		data       = make(map[string][]int)
 	)
+
 	for _, c := range contents {
 		if c.Status == "publish" && c.Type == "article" {
 			// pop temp index

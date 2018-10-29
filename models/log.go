@@ -1,11 +1,15 @@
 package models
 
 import (
+	"github.com/joyde68/blog/pkg"
 	"gopkg.in/macaron.v1"
+	"io/ioutil"
+	"os"
+	"path"
+	"path/filepath"
 	"time"
 )
 
-/*
 type logItem struct {
 	Name       string
 	CreateTime int64
@@ -21,7 +25,7 @@ func AddLog(bytes []byte) {
 
 func Logs() []*logItem {
 	logs := make([]*logItem, 0)
-	dir := filepath.Join("tmp","log")
+	dir := filepath.Join("data", "log")
 	filepath.Walk(dir, func(_ string, info os.FileInfo, err error) error {
 		if err == nil {
 			if info.IsDir() {
@@ -43,6 +47,7 @@ func Logs() []*logItem {
 		}
 		return nil
 	})
+
 	return logs
 }
 
@@ -56,19 +61,18 @@ func RemoveAllLog() {
 	os.Remove(f)
 	os.MkdirAll(f, 0755)
 }
-*/
 
 var (
 	loginErrorCount map[string]int
-	loginErrorLog []loginErrLog
+	loginErrorLog   []loginErrLog
 )
 
 type loginErrLog struct {
-	User string
-	Password string
-	Message string
-	Date int64
-	Ip string
+	User      string
+	Password  string
+	Message   string
+	Date      int64
+	Ip        string
 	UserAgent string
 }
 
@@ -81,11 +85,11 @@ func AddLoginErrLog(msg string, context *macaron.Context) {
 	ip := context.RemoteAddr()
 	loginErrorCount[ip]++
 	loginErrorLog = append(loginErrorLog, loginErrLog{
-		User: context.Query("user"),
-		Password: context.Query("password"),
-		Message: msg,
-		Date: time.Now().Unix(),
-		Ip: ip,
+		User:      context.Query("user"),
+		Password:  context.Query("password"),
+		Message:   msg,
+		Date:      time.Now().Unix(),
+		Ip:        ip,
 		UserAgent: context.Req.Header.Get("User-Agent"),
 	})
 }

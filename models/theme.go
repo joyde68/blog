@@ -13,10 +13,10 @@ import (
 )
 
 type themeItem struct {
-	Name       string
-	Files      []string
+	Name  string
+	Files []string
 	//ErrorFiles []string
-	Layout     []string
+	Layout []string
 }
 
 //func SetThemeCache(ctx *GoInk.Context, cache bool) {
@@ -61,12 +61,12 @@ func createThemeItem(dir string) (*themeItem, error) {
 	for _, fi := range files {
 		if fi.IsDir() {
 			/*
-			if fi.Name() == "error" {
-				theme.ErrorFiles, _ = filepath.Glob(filepath.Join(dir, fi.Name(), "*.tmpl"))
-				for i, f := range theme.ErrorFiles {
-					theme.ErrorFiles[i] = filepath.Join(fi.Name(), filepath.Base(f))
-				}
-			} else {
+				if fi.Name() == "error" {
+					theme.ErrorFiles, _ = filepath.Glob(filepath.Join(dir, fi.Name(), "*.tmpl"))
+					for i, f := range theme.ErrorFiles {
+						theme.ErrorFiles[i] = filepath.Join(fi.Name(), filepath.Base(f))
+					}
+				} else {
 			*/
 			f, _ := filepath.Glob(filepath.Join(dir, fi.Name(), "*.tmpl"))
 			for _, ff := range f {
@@ -108,7 +108,7 @@ func RenderText(name string, data map[string]interface{}) string {
 	}
 
 	var contentHtml bytes.Buffer
-	err = t.ExecuteTemplate(&contentHtml,name + ".tmpl", data)
+	err = t.ExecuteTemplate(&contentHtml, name+".tmpl", data)
 	if err != nil {
 		fmt.Println(err)
 		return ""
@@ -116,14 +116,6 @@ func RenderText(name string, data map[string]interface{}) string {
 
 	return contentHtml.String()
 }
-
-
-
-
-
-
-
-
 
 type jsonContext struct {
 	context *macaron.Context
@@ -145,7 +137,7 @@ func (jc *jsonContext) Set(key string, v interface{}) *jsonContext {
 }
 
 func (jc *jsonContext) End() {
-	jc.context.Resp.Header().Set("Content-Type","application/json;charset=UTF-8")
+	jc.context.Resp.Header().Set("Content-Type", "application/json;charset=UTF-8")
 	dataJson, err := json.Marshal(jc.data)
 	if err != nil {
 		fmt.Println(err)
@@ -155,9 +147,9 @@ func (jc *jsonContext) End() {
 }
 
 type themeContext struct {
-	template   string
-	layout string
-	tpl string
+	template string
+	layout   string
+	tpl      string
 }
 
 // Theme creates themed context response.
@@ -170,7 +162,7 @@ func Theme(isAdmin bool) *themeContext {
 	return t
 }
 
-func (tc *themeContext) Layout(layout string) *themeContext  {
+func (tc *themeContext) Layout(layout string) *themeContext {
 	/*
 		if layout == "" {
 			context.Layout("")
@@ -187,6 +179,7 @@ func (tc *themeContext) Tpl(tpl string) *themeContext {
 	tc.tpl = tpl
 	return tc
 }
+
 /*
 func (tc *themeContext) Has(tpl string) bool {
 	file := path.Join(tc.theme, tpl)
@@ -194,8 +187,8 @@ func (tc *themeContext) Has(tpl string) bool {
 }
 */
 func (tc *themeContext) Render(context *macaron.Context, statusCode int, data map[string]interface{}) error {
-	context.Resp.WriteHeader(statusCode)
-	//context.Render(path.Join(tc.theme, tpl), data)
+	var contentHtml bytes.Buffer
+
 	t := template.New("template").Funcs(template.FuncMap{
 		"Html": func(data string) template.HTML {
 			return template.HTML(data)
@@ -212,38 +205,50 @@ func (tc *themeContext) Render(context *macaron.Context, statusCode int, data ma
 	})
 
 	if tc.layout == "" || pkg.IsFile(tc.layout) {
+		info := fmt.Sprintf("%s -> %s%s -> %d", context.Req.Method, context.Req.RemoteAddr,
+			context.Req.RequestURI, statusCode)
+		AddLog([]byte(info))
+
 		t, err := t.ParseFiles(path.Join("templates", tc.template, tc.tpl+".tmpl"))
 		if err != nil {
-			fmt.Println(err)
 			return err
 		}
-		err = t.ExecuteTemplate(context.Resp, tc.tpl+".tmpl",data)
+
+		err = t.ExecuteTemplate(&contentHtml, tc.tpl+".tmpl", data)
 		if err != nil {
-			fmt.Println(err)
 			return err
 		}
+
+		// 设置状态码
+		context.Resp.WriteHeader(statusCode)
+		context.Resp.Write(contentHtml.Bytes())
+
 		return nil
 	}
 
 	t, err := t.ParseFiles(path.Join("templates", tc.template, tc.layout+".tmpl"), path.Join("templates", tc.template, tc.tpl+".tmpl"))
 	if err != nil {
-		fmt.Println(err)
 		return err
 	}
 
-	var contentHtml bytes.Buffer
 	err = t.ExecuteTemplate(&contentHtml, tc.tpl+".tmpl", data)
 	if err != nil {
-		fmt.Println(err)
+		fmt.Println("232", err)
 		return err
 	}
 
 	data["LayoutContent"] = contentHtml.String()
-	err = t.ExecuteTemplate(context.Resp, tc.layout+".tmpl", data)
+	contentHtml.Reset()
+
+	err = t.ExecuteTemplate(&contentHtml, tc.layout+".tmpl", data)
 	if err != nil {
-		fmt.Println(err)
+		fmt.Println("240", err)
 		return err
 	}
+
+	// 设置状态码
+	context.Resp.WriteHeader(statusCode)
+	context.Resp.Write(contentHtml.Bytes())
 
 	return nil
 }

@@ -5,9 +5,8 @@
 <ul class="cmd-list" id="log-list">{{range .Logs}}
     <li class="log relative">
         <span class="name inline-block">{{.Name}}</span>
-        <span class="time inline-block">{{DateInt64 .CreateTime "MM.DD HH:mm"}}</span>
+        <span class="name inline-block">{{DateInt64 .CreateTime "MM.DD HH:mm"}}&nbsp;<a class="remove absolute" href="/admin/logs/?file={{.Name}}">删除</a></span>
         <pre class="text">{{.Text}}</pre>
-        <a class="remove absolute" href="/cmd/logs/?file={{.Name}}">删除</a>
     </li>{{end}}
 </ul>
 </div>
