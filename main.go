@@ -34,6 +34,8 @@ func init() {
 
 	// set recover handler
 	App.InternalServerError(func(context *macaron.Context) {
+		info := fmt.Sprintf("%s -> %s%s -> %d", context.Req.Method, context.Req.RemoteAddr, context.Req.RequestURI, 500)
+		models.AddLog([]byte(info))
 		models.Theme(false).Tpl("500").Render(context, 500, nil)
 	})
 
@@ -66,6 +68,7 @@ func registerHomeRoutes() {
 	App.Get("/sitemap", routes.SiteMap)
 
 	App.Get("/:slug", routes.TopPage)
+	//App.Get("/", routes.Root(routes.Home))
 	App.Get("/", routes.Home)
 }
 
@@ -110,7 +113,7 @@ func registerAdminRoutes() {
 		App.Route("/backup/", "GET,POST,DELETE", routes.AdminBackup)
 		App.Get("/backup/file/:filename", routes.AdminBackupFile)
 
-		//App.Route("/logs/", "GET,DELETE", routes.AdminLogs)
+		App.Route("/logs/", "GET,DELETE", routes.AdminLogs)
 	}, routes.Auth)
 }
 
