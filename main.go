@@ -11,7 +11,6 @@ import (
 )
 
 var (
-	// Global GoInk application
 	App *macaron.Macaron
 )
 
@@ -46,7 +45,6 @@ func init() {
 }
 
 func main() {
-
 	registerAdminRoutes()
 	registerHomeRoutes()
 
