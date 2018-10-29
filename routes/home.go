@@ -39,10 +39,10 @@ func Login(context *macaron.Context) {
 		context.Redirect("/admin/")
 		return
 	}
-	err := models.Theme(true).Tpl("login").Render(context, 200,nil)
+	err := models.Theme(true).Tpl("login").Render(context, 200, nil)
 	if err != nil {
 		fmt.Println(err)
-		models.Theme(false).Tpl("500").Render(context,500,nil)
+		models.Theme(false).Tpl("500").Render(context, 500, nil)
 	}
 }
 
@@ -76,16 +76,16 @@ func TagArticles(context *macaron.Context) {
 	}
 
 	data := map[string]interface{}{
-		"Articles":    articles,
-		"Pager":       pager,
-		"Tag":         tag,
-		"Title":       tag,
+		"Articles": articles,
+		"Pager":    pager,
+		"Tag":      tag,
+		"Title":    tag,
 	}
 
-	err := models.Theme(false).Layout("layout").Tpl("list").Render(context, 200,data)
+	err := models.Theme(false).Layout("layout").Tpl("list").Render(context, 200, data)
 	if err != nil {
 		fmt.Println(err)
-		models.Theme(false).Tpl("500").Render(context,500,nil)
+		models.Theme(false).Tpl("500").Render(context, 500, nil)
 	}
 }
 
@@ -101,18 +101,17 @@ func Home(context *macaron.Context) {
 		data["Title"] = "第 " + strconv.Itoa(page) + " 页"
 	}
 
-	err := models.Theme(false).Layout("layout").Tpl("list").Render(context, 200,data)
+	err := models.Theme(false).Layout("layout").Tpl("list").Render(context, 200, data)
 	if err != nil {
 		fmt.Println(err)
-		models.Theme(false).Tpl("500").Render(context,500,nil)
+		models.Theme(false).Tpl("500").Render(context, 500, nil)
 	}
 }
 
 func Article(context *macaron.Context) {
 	slug := context.Params("slug")
 	article := models.GetContentBySlug(slug)
-	fmt.Println(article)
-	if article == nil || article.Status != "publish"  {
+	if article == nil || article.Status != "publish" {
 		models.Theme(false).Tpl("404").Render(context, 404, nil)
 		return
 	}
@@ -122,8 +121,8 @@ func Article(context *macaron.Context) {
 	}
 
 	data := map[string]interface{}{
-		"Title":       article.Title,
-		"Article":     article,
+		"Title":   article.Title,
+		"Article": article,
 		"CommentHtml": models.RenderText("comment", map[string]interface{}{
 			"Content":  article,
 			"Comments": article.Comments,
@@ -131,10 +130,10 @@ func Article(context *macaron.Context) {
 	}
 
 	// 渲染内容
-	err := models.Theme(false).Layout("layout").Tpl("article").Render(context, 200,data)
+	err := models.Theme(false).Layout("layout").Tpl("article").Render(context, 200, data)
 	if err != nil {
 		fmt.Println(err)
-		models.Theme(false).Tpl("500").Render(context,500,nil)
+		models.Theme(false).Tpl("500").Render(context, 500, nil)
 		return
 	}
 
@@ -159,10 +158,10 @@ func Page(context *macaron.Context) {
 		//"CommentHtml": Comments(context, article),
 	}
 
-	err := models.Theme(false).Layout("layout").Tpl("page").Render(context, 200,data)
+	err := models.Theme(false).Layout("layout").Tpl("page").Render(context, 200, data)
 	if err != nil {
 		fmt.Println(err)
-		models.Theme(false).Tpl("500").Render(context,500,nil)
+		models.Theme(false).Tpl("500").Render(context, 500, nil)
 		return
 	}
 
@@ -187,10 +186,10 @@ func TopPage(context *macaron.Context) {
 		"Page":  page,
 	}
 
-	err := models.Theme(false).Layout("layout").Tpl("page").Render(context, 200,data)
+	err := models.Theme(false).Layout("layout").Tpl("page").Render(context, 200, data)
 	if err != nil {
 		fmt.Println(err)
-		models.Theme(false).Tpl("500").Render(context,500,nil)
+		models.Theme(false).Tpl("500").Render(context, 500, nil)
 		return
 	}
 

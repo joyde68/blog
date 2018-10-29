@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/joyde68/blog/models"
 	"github.com/joyde68/blog/routes"
 	"gopkg.in/macaron.v1"
@@ -124,9 +125,14 @@ func catchExit() {
 	for {
 		switch <-sig {
 		case os.Interrupt, sigTerm:
-			println("\n退出前保存数据")
+			fmt.Println("\n -> 退出前保存数据")
 			models.SyncAll()
-			println("准备退出")
+			fmt.Println(" -> 清理临时文件")
+			if err := os.RemoveAll("tmp"); err != nil {
+				fmt.Printf("(    -> 清理临时文件失败！\n    -> %s)", err.Error())
+				os.Exit(1)
+			}
+			fmt.Println(" -> 准备退出")
 			os.Exit(0)
 		}
 	}

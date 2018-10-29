@@ -26,8 +26,8 @@ func (jss *JsonStorage) Init(dir string) {
 
 func (jss *JsonStorage) Has(key string) bool {
 	/*
-	file := path.Join(jss.Dir, key+".json")
-	_, e := os.Stat(file)
+		file := path.Join(jss.Dir, key+".json")
+		_, e := os.Stat(file)
 	*/
 	return pkg.IsFile(jss.Dir + key + ".json")
 }
@@ -88,6 +88,8 @@ func (jss *JsonStorage) TimeInc(d int) int {
 // v means app.Version number. It's needed for version data.
 func StorageInit() {
 	//appVersion = v
+	os.MkdirAll(path.Join("tmp", "data"), 0755)
+
 	Storage = new(JsonStorage)
 	Storage.Init("data")
 	TmpStorage = new(JsonStorage)

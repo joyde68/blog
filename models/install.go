@@ -13,8 +13,8 @@ import (
 )
 
 var (
-	tmpZipFile      = "tmp.zip"
-	installLockFile = "install.lock"
+	tmpZipFile             = "tmp.zip"
+	installLockFile        = "install.lock"
 	createdCommentTemplate = `
 <table style="width: 99.8%;height:99.8% "><tbody><tr><td style="background:#FAFAFA">
     <div style="background-color:white;border-top:2px solid #0079BC;box-shadow:0 1px 3px #AAAAAA;line-height:180%;padding:0 15px 12px;width:500px;margin:50px auto;color:#555555;font-family:'Century Gothic','Trebuchet MS','Hiragino Sans GB',微软雅黑,'Microsoft Yahei',Tahoma,Helvetica,Arial,'SimSun',sans-serif;font-size:12px;">
@@ -146,32 +146,32 @@ func writeDefaultData() {
 
 	// write version
 	/*
-	v := new(version)
-	v.Name = "Fxh.Go"
-	v.BuildTime = pkg.pkg.Now()
-	v.Version = appVersion
-	Storage.Set("version", v)
+		v := new(version)
+		v.Name = "Fxh.Go"
+		v.BuildTime = pkg.pkg.Now()
+		v.Version = appVersion
+		Storage.Set("version", v)
 	*/
 
 	// write settings
 	s := map[string]string{
-		"site_title":         "Fxh.Go",
-		"site_sub_title":     "Go开发的简单博客",
-		"site_keywords":      "Fxh.Go,Golang,Blog",
-		"site_description":   "Go语言开发的简单博客程序",
-		"site_url":           "http://localhost/",
-		"article_size":       "4",
-		"popular-size": "4",
-		"recent-comment-size": "4",
-		"site_theme":         "default",
-		"enable_go_markdown": "false",
-		"c_footer_weibo":     "#",
-		"c_footer_github":    "#",
-		"c_footer_email":     "#",
-		"c_home_avatar":      "/public/img/site.png",
-		"c_footer_ga":        "<!-- google analytics or other -->",
+		"site_title":              "Fxh.Go",
+		"site_sub_title":          "Go开发的简单博客",
+		"site_keywords":           "Fxh.Go,Golang,Blog",
+		"site_description":        "Go语言开发的简单博客程序",
+		"site_url":                "http://localhost/",
+		"article_size":            "4",
+		"popular-size":            "4",
+		"recent-comment-size":     "4",
+		"site_theme":              "default",
+		"enable_go_markdown":      "false",
+		"c_footer_weibo":          "#",
+		"c_footer_github":         "#",
+		"c_footer_email":          "#",
+		"c_home_avatar":           "/public/img/site.png",
+		"c_footer_ga":             "<!-- google analytics or other -->",
 		"create-comment-template": createdCommentTemplate,
-		"reply-comment-template": replyCommentTemplate,
+		"reply-comment-template":  replyCommentTemplate,
 	}
 	Storage.Set("settings", s)
 
@@ -209,21 +209,20 @@ func writeDefaultTmpData() {
 
 func DoInstall() {
 	// init some settings
-	os.MkdirAll(path.Join("data", "log"), 0755)
-	os.MkdirAll(path.Join("tmp", "data"), 0755)
-	os.MkdirAll(path.Join("public", "upload"), 0755)
-
 	os.Mkdir(Storage.Dir, 0755)
-	os.Mkdir(Storage.Dir + "/content", 0755)
-	
+	os.Mkdir(path.Join(Storage.Dir, "content"), 0755)
+	os.Mkdir(path.Join(Storage.Dir, "log"), 0755)
+	os.Mkdir("public", 0755)
+	os.Mkdir(path.Join("public", "upload"), 0755)
+
+	// 初始化数据
 	writeDefaultData()
-
+	// 释放资源文件
 	ExtractBundleBytes()
-
+	// 生成安装标记
 	ioutil.WriteFile(installLockFile, []byte(fmt.Sprint(pkg.Now())), os.ModePerm)
 	println("install success")
 }
-
 
 func ExtractBundleBytes() {
 	// origin from https://github.com/wendal/gor/blob/master/gor/gor.go
